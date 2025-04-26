@@ -38,7 +38,7 @@ It features a chatbot for patients and an admin dashboard for healthcare staff.
 1. **Clone the repository**:
 ```bash
    git clone https://github.com/dmkhang1101/patient-therapist-chatbot.git
-   cd your-project-folder
+   cd patient-therapist-chatbot
 ```
 
 2. **Install dependencies**:
