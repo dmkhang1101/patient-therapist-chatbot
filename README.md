@@ -59,7 +59,9 @@ It features a chatbot for patients and an admin dashboard for healthcare staff.
     VITE_SUPABASE_URL=your-supabase-url
     VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
     VITE_OPENAI_API_KEY=your-openai-api-key
-    VITE_GOOGLE_ACCESS_TOKEN=your-google-calendar-access-token
+    VITE_GOOGLE_CLIENT_ID=your-google-client-id
+    VITE_GOOGLE_CLIENT_SECRET=your-google-client-secret
+    VITE_GOOGLE_REFRESH_TOKEN=your-google-refresh-token
 ```
 
 4. **Run the app locally**:
