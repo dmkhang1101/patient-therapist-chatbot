@@ -26,12 +26,10 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen flex flex-col items-center pt-24 p-8">
-      {/* Centered Page Title */}
       <h1 className="text-4xl font-bold text-center mb-12">
         Admin Dashboard
       </h1>
 
-      {/* Main Content */}
       <div className="w-full max-w-5xl space-y-12">
         {/* Patient Inquiries */}
         <section>
@@ -62,7 +60,7 @@ export default function AdminDashboard() {
                     <p><strong>Patient:</strong> {a.patients?.full_name || "Unknown"}</p>
                     <p><strong>Therapist:</strong> {a.therapists?.full_name || "Unknown"}</p>
                     <p><strong>Meeting Time:</strong> {a.appointment_time || "Not set"}</p>
-                    <p><strong>Meeting Link:</strong> 
+                    <p><strong>Meeting Link: </strong> 
                         {a.google_meeting_link ? (
                         <a href={a.google_meeting_link} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">
                             Join Meeting

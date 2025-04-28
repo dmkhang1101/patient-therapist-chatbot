@@ -15,11 +15,18 @@ It features a chatbot for patients and an admin dashboard for healthcare staff.
   - Preferred appointment schedule
   - Insurance provider
 - 🔎 **AI Matching**: Extracts keywords from the patient's problem description using OpenAI and matches with a suitable therapist based on specialty and insurance.
-- 📅 **Appointment Recording**: After matching, creates an appointment entry in the database (no Google Calendar integration yet).
+- 📅 **Appointment Recording**: 
+  - Automatically creates a Google Calendar event with a Google Meet link.
+  - Adds both patient and therapist as attendees.
+  - Sends Google Calendar invitations to both parties.
+- 🛡️ ***Insurance Matching**: Ensures therapists accept the patient's insurance before matching.
 - 📊 **Admin Dashboard**:
   - View list of patient inquiries
   - View list of scheduled appointments
   - Displays patient name, therapist name, meeting time, and meeting link (if available)
+- 📬 **Automatic Notifications**:
+  - Patients and Therapists receive official Google Calendar invites and reminders.
+  - Organizer (admin) sees all appointments directly on their Calendar.
 
 ---
 
@@ -30,6 +37,7 @@ It features a chatbot for patients and an admin dashboard for healthcare staff.
 - **TailwindCSS** (UI styling)
 - **OpenAI API** (Keyword extraction for matching)
 - **React Router** (for page navigation)
+- **chrono-node + luxon** (Natural language date parsing)
 
 ---
 
@@ -51,6 +59,7 @@ It features a chatbot for patients and an admin dashboard for healthcare staff.
     VITE_SUPABASE_URL=your-supabase-url
     VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
     VITE_OPENAI_API_KEY=your-openai-api-key
+    VITE_GOOGLE_ACCESS_TOKEN=your-google-calendar-access-token
 ```
 
 4. **Run the app locally**:
@@ -91,8 +100,15 @@ created_at
 Patient submits problem description.
 OpenAI extracts important keywords.
 The app matches therapists based on:
-Overlapping specialties (flexible matching)
-Accepted insurance
+ - Overlapping specialties (flexible matching)
+ - Accepted insurance
 If a match is found:
-Appointment is recorded into the database
-A success message is shown to the patient.
+ - Appointment is recorded into the database
+ - A success message is shown to the patient.
+
+## 📬 Google Calendar Integration Details
+
+✅ Appointments are scheduled inside the Organizer's (Admin's) Google Calendar.
+✅ Patients and Therapists receive real Google Calendar invites.
+✅ Includes automatic Google Meet link generation.
+✅ No manual emailing needed — handled by Google Calendar itself.

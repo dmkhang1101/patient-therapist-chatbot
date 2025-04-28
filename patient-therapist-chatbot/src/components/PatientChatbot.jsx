@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { supabase } from "../services/supabaseClient";
 import { extractKeywords } from "../services/openAIClient";
+import { createGoogleMeetEvent } from "../services/googleCalendarClient";
+import { parsePreferredSchedule } from "../services/parseDateTime";
 
 const questions = [
   { name: "full_name", text: "👋 Hi there! What's your full name?" },
@@ -80,14 +82,33 @@ export default function PatientChatbot() {
               ...prev,
               { role: 'bot', text: `✅ Thanks ${patient.full_name}! We found a therapist for you: ${bestMatch.full_name}, specialized in ${bestMatch.specialty.join(', ')}.` }
             ]);
-            // Create appointment record
+
+            let googleMeetLink = null;
+            let appointmentTime = null;
+
+            try {
+              const { startDateTimeISO, endDateTimeISO } = parsePreferredSchedule(patient.preferred_schedule);
+
+              googleMeetLink = await createGoogleMeetEvent(
+                patient.full_name,
+                completedPatient.email,
+                bestMatch.full_name,
+                bestMatch.email,
+                startDateTimeISO,
+                endDateTimeISO
+              );
+              appointmentTime = startDateTimeISO;
+            } catch (calendarError) {
+              console.error("Failed to create Google Meet event:", calendarError.message);
+            }
+
             const { error: appointmentError } = await supabase.from('appointments').insert([
               {
-                patient_id: newPatient[0].id,   // the patient you just inserted
-                therapist_id: bestMatch.id,     // the matched therapist
-                appointment_time: null,         // no specific time yet
-                status: 'matched',              // custom status: "matched"
-                google_meeting_link: null       // no calendar link yet
+                patient_id: newPatient[0].id,
+                therapist_id: bestMatch.id,
+                appointment_time: appointmentTime,
+                status: 'matched',
+                google_meeting_link: googleMeetLink
               }
             ]);
 
@@ -111,12 +132,11 @@ export default function PatientChatbot() {
         }
       }
       setLoading(false);
-    }, 1000); // Fake "thinking" delay
+    }, 1000);
   };
 
   return (
     <div className="flex flex-col p-4 max-w-lg mx-auto space-y-4">
-      {/* Centered Page Title */}
       <h1 className="text-4xl font-bold text-center mb-12">
         Patient Chatbot
       </h1>
