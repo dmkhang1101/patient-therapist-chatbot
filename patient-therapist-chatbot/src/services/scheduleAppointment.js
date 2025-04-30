@@ -82,6 +82,10 @@ export async function scheduleAppointment(patient, therapist, patientId) {
         }
       ]);
 
+      await supabase.from("patients")
+      .update({ preferred_schedule: startDateTimeISO })
+      .eq("id", patientId);
+
       return {
         status: "scheduled",
         meetingLink: calendarData.hangoutLink,
