@@ -6,10 +6,9 @@ export async function scheduleAppointment(patient, therapist, patientId) {
   try {
     const { full_name, email, preferred_schedule } = patient;
     const { therapist_id, therapist_name, therapist_email } = therapist;
-
+    
+    console.log(preferred_schedule)
     const { startDateTimeISO, endDateTimeISO } = parsePreferredSchedule(preferred_schedule);
-    console.log(startDateTimeISO)
-    console.log(endDateTimeISO)
     const accessToken = await refreshAccessToken();
 
     // 1️⃣ Step 1: Check therapist availability
@@ -41,6 +40,8 @@ export async function scheduleAppointment(patient, therapist, patientId) {
       };
     }
 
+    console.log("Creating event with emails:", email, therapist_email);
+
     // 2️⃣ Step 2: Create event if no conflict
     const calendarRes = await fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1", {
       method: "POST",
@@ -63,8 +64,14 @@ export async function scheduleAppointment(patient, therapist, patientId) {
     });
 
     const calendarData = await calendarRes.json();
-
     if (calendarRes.ok && calendarData?.hangoutLink) {
+      console.log("inserting",{
+        patient_id: patientId,
+        therapist_id,
+        appointment_time: startDateTimeISO,
+        google_meeting_link: calendarData.hangoutLink,
+        status: "matched"
+      })
       await supabase.from("appointments").insert([
         {
           patient_id: patientId,

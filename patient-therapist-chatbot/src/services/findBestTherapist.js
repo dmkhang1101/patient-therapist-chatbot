@@ -1,25 +1,5 @@
 import { supabase } from "./supabaseClient";
-
-const tools = [
-  {
-    type: "function",
-    function: {
-      name: "match_and_schedule",
-      description: "Return the best therapist's ID, name, and email if a match is found. If no therapist is suitable for the patient's concern, return null values.",
-      parameters: {
-        type: "object",
-        properties: {
-          therapist_id: { type: "string", nullable: true },
-          therapist_name: { type: "string", nullable: true },
-          therapist_email: { type: "string", nullable: true }
-        },
-        required: ["therapist_id", "therapist_name", "therapist_email"],
-        additionalProperties: false
-      }
-    },
-    strict: true
-  }
-];
+import { MATCH_AND_SCHEDULE_TOOL_DEF } from "./toolSchemas";
 
 export async function findBestTherapist(patient) {
   try {
@@ -60,7 +40,7 @@ export async function findBestTherapist(patient) {
                 - If no therapist fits the patient's issue, return null for all fields.`
           }
         ],
-        tools,
+        tools: [MATCH_AND_SCHEDULE_TOOL_DEF],
         tool_choice: "auto"
       })
     });
