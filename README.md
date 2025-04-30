@@ -11,10 +11,10 @@ It features a chatbot for patients and an admin dashboard for healthcare staff.
   - Name
   - Email
   - Phone
+  - Insurance provider
   - Problem description
   - Preferred appointment schedule
-  - Insurance provider
-- 🔎 **AI Matching**: Extracts keywords from the patient's problem description using OpenAI and matches with a suitable therapist based on specialty and insurance.
+- 🔎 **AI Matching**: Extracts patient's problem description and therapists' profiles, use OpenAI to match patient with a suitable therapist based on specialty and insurance.
 - 📅 **Appointment Recording**: 
   - Automatically creates a Google Calendar event with a Google Meet link.
   - Adds both patient and therapist as attendees.
