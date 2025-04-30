@@ -1,5 +1,5 @@
 import { supabase } from "./supabaseClient";
-import { MATCH_AND_SCHEDULE_TOOL_DEF } from "./toolSchemas";
+import { FIND_BEST_THERAPIST_TOOL_DEF } from "./toolSchemas";
 
 export async function findBestTherapist(patient) {
   try {
@@ -21,7 +21,7 @@ export async function findBestTherapist(patient) {
             role: "system",
             content: `You are a therapy intake assistant.
                 Only match patients with therapists if the concern is related to mental health issues (e.g., anxiety, depression, relationships, stress).
-                If the patient's concern is unrelated to therapy (e.g., cancer treatment, surgery, medical care), return null values via the match_and_schedule function.`
+                If the patient's concern is unrelated to therapy (e.g., cancer treatment, surgery, medical care), return null values via the find_best_therapist function.`
           },
           {
             role: "user",
@@ -36,11 +36,11 @@ export async function findBestTherapist(patient) {
                 ${JSON.stringify(therapists, null, 2)}
 
                 Instructions:
-                - If a suitable therapist is found, call match_and_schedule with their ID, name, and email.
+                - If a suitable therapist is found, call find_best_therapist with their ID, name, and email.
                 - If no therapist fits the patient's issue, return null for all fields.`
           }
         ],
-        tools: [MATCH_AND_SCHEDULE_TOOL_DEF],
+        tools: [FIND_BEST_THERAPIST_TOOL_DEF],
         tool_choice: "auto"
       })
     });

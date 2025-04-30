@@ -1,12 +1,4 @@
-import { findBestTherapist } from "./findBestTherapist";
 import { scheduleAppointment } from "./scheduleAppointment";
-
-export async function matchAndSchedule(args) {
-  return await findBestTherapist({
-    problem_description: args.problem_description,
-    insurance_provider: args.insurance_provider
-  });
-}
 
 export async function callScheduleAppointment(args) {
   const patient = {

@@ -1,7 +1,7 @@
-export const MATCH_AND_SCHEDULE_TOOL_DEF = {
+export const FIND_BEST_THERAPIST_TOOL_DEF = {
     type: "function",
     function: {
-      name: "match_and_schedule",
+      name: "find_best_therapist",
       description: "Return the best therapist's ID, name, and email if a match is found. If no therapist is suitable for the patient's concern, return null values.",
       parameters: {
         type: "object",
@@ -16,7 +16,7 @@ export const MATCH_AND_SCHEDULE_TOOL_DEF = {
     },
     strict: true
   }
-  
+
   export const SCHEDULE_APPOINTMENT_TOOL_DEF = {
     type: "function",
     function: {

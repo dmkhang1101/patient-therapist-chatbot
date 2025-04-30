@@ -1,7 +1,6 @@
-import { matchAndSchedule, callScheduleAppointment } from "./toolFunctions";
+import { callScheduleAppointment } from "./toolFunctions";
 
 const toolFunctionMap = {
-  match_and_schedule: matchAndSchedule,
   schedule_appointment: callScheduleAppointment
 };
 
