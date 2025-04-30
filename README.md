@@ -84,10 +84,10 @@ created_at
 
 therapists
 id (UUID)
-full_name
-specialty (Array of strings)
+full_name (string)
+email (string)
+specialty (string)
 insurance_accepted (Array of strings)
-google_calendar_id (optional)
 
 appointments
 id (UUID)
@@ -97,20 +97,3 @@ appointment_time (text for now)
 status (e.g., matched, scheduled)
 google_meeting_link (optional)
 created_at
-
-## 📚 How Matching Works
-Patient submits problem description.
-OpenAI extracts important keywords.
-The app matches therapists based on:
- - Overlapping specialties (flexible matching)
- - Accepted insurance
-If a match is found:
- - Appointment is recorded into the database
- - A success message is shown to the patient.
-
-## 📬 Google Calendar Integration Details
-
-✅ Appointments are scheduled inside the Organizer's (Admin's) Google Calendar.
-✅ Patients and Therapists receive real Google Calendar invites.
-✅ Includes automatic Google Meet link generation.
-✅ No manual emailing needed — handled by Google Calendar itself.
