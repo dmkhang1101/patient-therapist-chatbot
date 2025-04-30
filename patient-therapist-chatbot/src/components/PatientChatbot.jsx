@@ -105,10 +105,9 @@ export default function PatientChatbot() {
     }
   
     const results = await handleToolCalls(toolCalls, {
-      patient,
+      patient: updatedPatient,
       patient_id: patientId
     });
-  
     const scheduleResult = results.find(res => res.name === "schedule_appointment")?.result;
   
     if (scheduleResult?.status === "scheduled") {
